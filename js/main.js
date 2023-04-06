@@ -68,5 +68,63 @@ function agregarProductos(productos){
                              </div>
                           </div>
         `
+        contenedorProductos.append(div)
+    });
+    actualizarBotonesAgregados();
+}
+
+agregarProductos(productos);
+
+const producto1 = productos.filter((prod) => prod.categoria === 'producto1');
+const producto2 = productos.filter((prod) => prod.categoria === 'producto2');
+const producto3 = productos.filter((prod) => prod.categoria === 'producto3');
+const producto4 = productos.filter((prod) => prod.categoria === 'producto4');
+
+botonesCategoria.forEach((boton, id) => {
+    boton.addEventListener('click', () => {
+        let botonDinamico = boton.id
+        switch (botonDinamico) {
+            case 'producto1':
+                categoria(cortina)
+                break;
+            case 'producto2':
+                categoria(mantas)
+                break;
+            case 'producto3':
+                categoria(alfombra)
+                break;
+            case 'producto4':
+                categoria(almohadon)
+                break;
+            default:
+                agregarProductos(productos)
+                break;
+        }
+    })
+})
+
+function mostrarDiv() {
+    let mostrar = document.getElementById("ocultar");
+    mostrar.style.display = "block";
+}
+mostrarDiv();
+
+function hide(){
+    let hide1 = document.getElementById("productos");
+    hide1.addEventListener("click", () => {
+        let ocultar = document.getElementById("ocultar");
+        ocultar.style.display = "none";
     });
 }
+hide();
+
+function mostrarInicio() {
+    let botonMostrarTodo = document.getElementById("todos");
+    botonMostrarTodo.addEventListener("click", () => {
+        mostrarDiv();
+    });
+}
+
+mostrarInicio();
+
+//funcion buscador
