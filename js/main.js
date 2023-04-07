@@ -1,4 +1,4 @@
-//barra nav
+
 
 const nav = document.querySelector("#nav");
 const abrir = document.querySelector("#abrir");
@@ -8,7 +8,10 @@ abrir.addEventListener("click", () => {
     nav.classList.remove("visible");
 })
 
-//Productos
+cerrar.addEventListener("click", () => {
+    nav.classList.remove("visible");
+})
+
 
 class Productos{
     constructor (id, nombre, imagen, categoria, precio){
@@ -45,7 +48,7 @@ const productoN = new Productos("producto-14", "ProductoN", "https://dummyimage.
 const productoO = new Productos("producto-15", "Producto O", "https://dummyimage.com/400x600/000/fff", "Producto4", 1000);
 const productoP = new Productos("producto-16", "Producto P", "https://dummyimage.com/400x600/000/fff", "Producto4", 1000);
 
-//Array productos
+
 const productos = [productoA, productoB, productoC, productoD, productoE, productoF, productoG, productoH, productoI, productoJ,
 productoK, productoL, productoM, productoN, productoO, productoP]
 
@@ -85,16 +88,16 @@ botonesCategoria.forEach((boton, id) => {
         let botonDinamico = boton.id
         switch (botonDinamico) {
             case 'producto1':
-                categoria(cortina)
+                categoria(producto1)
                 break;
             case 'producto2':
-                categoria(mantas)
+                categoria(producto2)
                 break;
             case 'producto3':
-                categoria(alfombra)
+                categoria(producto3)
                 break;
             case 'producto4':
-                categoria(almohadon)
+                categoria(producto4)
                 break;
             default:
                 agregarProductos(productos)
@@ -127,4 +130,85 @@ function mostrarInicio() {
 
 mostrarInicio();
 
-//funcion buscador
+
+
+function categoria(array) {
+    contenedorProductos.innerHTML = "";
+    array.forEach(producto => {
+        let div = document.createElement("div");
+        div.classList.add("producto");
+        div.innerHTML = `   
+        <div class="producto">
+          <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
+          <div class="producto-detalle">
+             <h3 class="producto-titulo">${producto.titulo}</h3>
+             <p class="producto-precio"> $${producto.precio}</p>
+             <button class="producto-agregar" id="${producto.id}">Agregar</button>
+          </div>
+        </div>
+        `
+        contenedorProductos.append(div);
+    })
+    actualizarBotonesAgregados();
+}
+
+function actualizarBotonesAgregados(){
+    botonesAgregados = document.querySelectorAll(".producto-agregar");
+
+    botonesAgregados.forEach(boton => {
+        boton.addEventListener("click", agregarAlCarrito);
+    })
+}
+
+let productosEnCarrito;
+let productosEnCarritoLS = localStorage.getItem("productos-en-carrito");
+
+if(productosEnCarritoLS){
+    productosEnCarrito = JSON.parse(productosEnCarritoLS);
+    actualizarNumero();
+}else{
+    productosEnCarrito = [];
+}
+
+function agregarAlCarrito(e){
+
+    Toastify({
+        Text: "Producto Agregado",
+        duration: 3000,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+        color: "white",
+        background: "linear-gradient(to right, #0c225e, #0c225e)",
+        fontSize: "1rem",
+        },
+        offset: {
+            x: "1.5rem", // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+            y: "1.5rem" // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        },
+        onClick: function(){} // Callback after click
+    }).showToast();
+
+    const idBton = e.currentTarget.id;
+    const productoAgregado = productos.find(producto => producto.id === idBton);
+
+    if(productosEnCarrito.some(producto => producto.id == idBton)){
+        const index = productosEnCarrito.findIndex(producto => producto.id === idBton);
+        productosEnCarrito[index].cantidad++;
+    }else{
+        productoAgregado.cantidad = 1;
+        productosEnCarrito.push(productoAgregado);
+    }
+
+    actualizarNumero();
+
+    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+
+}
+
+function actualizarNumero(){
+    let nuevoNumero = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    nuevoNumero.innerText = nuevoNumero;
+}
