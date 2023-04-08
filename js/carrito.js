@@ -5,7 +5,7 @@ const carritoVacio = document.querySelector("#carrito-vacio");
 const carritoProductos = document.querySelector("#carrito-productos");
 const carritoAcciones = document.querySelector("#carrito-acciones");
 const carritoComprado = document.querySelector("#carrito-comprado");
-let botonEliminador = document.querySelector("#.carrito-producto-eliminar");
+let botonesEliminador = document.querySelector("#.carrito-producto-eliminar");
 const carritoVaciar = document.querySelector("#carrito-acciones-vaciar");
 const contenedorTotal = document.querySelector("#total");
 const botonComprar = document.querySelector("#carrito-acciones-comprar");
@@ -25,10 +25,10 @@ function subirProductoCarrito(){
             const div = document.createElement("div");
             div.classList.add("carrito-producto");
             div,innerHTML = ` 
-            <img class="carrito-producto-imagen" src=".${producto.imagen}" alt="${producto.titulo}">
-            <div class="carrito-producto-titulo">
+            <img class="carrito-producto-imagen" src=".${producto.imagen}" alt="${producto.nombre}">
+            <div class="carrito-producto-nombre">
                 <small>Titutlo</small>
-                <h3>${producto.titulo}</h3>
+                <h3>${producto.nombre}</h3>
             </div>
             <div class="carrito-producto-cantidad">
                 <small>Cantidad</small>
@@ -50,6 +50,7 @@ function subirProductoCarrito(){
 
         actualizarBotonesEliminar();
         actualizarTotal();
+
     }else{
         carritoVacio.classList.remove("disabled");
         carritoProductos.classList.add("disabled");
@@ -61,16 +62,16 @@ function subirProductoCarrito(){
 subirProductoCarrito();
 
 function actualizarBotonesEliminar(){
-    botonEliminador = document.querySelectorAll(".carrito-producto-eliminar");
+    botonesEliminador = document.querySelectorAll(".carrito-producto-eliminar");
 
-    botonEliminador.forEach(boton => {
+    botonesEliminador.forEach(boton => {
         boton.addEventListener("click", eliminarDelCarrito);
     });
 
 }
 
 function eliminarDelCarrito(e){
-    const idBton = e.currentTarget.id;
+    const idBoton = e.currentTarget.id;
     const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
 
     productosEnCarrito.splice(index,1);

@@ -13,7 +13,7 @@ cerrar.addEventListener("click", () => {
 })
 
 
-class Productos{
+class Producto{
     constructor (id, nombre, imagen, categoria, precio){
         this.id = id;
         this.nombre = nombre;
@@ -24,44 +24,46 @@ class Productos{
     }
 }
 
-//Producto 1
-const productoA = new Productos("producto-1", "Producto A", "https://dummyimage.com/400x600/000/fff", "Producto1", 1000);
-const productoB = new Productos("producto-2", "Producto B", "https://dummyimage.com/400x600/000/fff", "Producto1", 1000);
-const productoC = new Productos("producto-3", "Producto C", "https://dummyimage.com/400x600/000/fff", "Producto1", 1000);
-const productoD = new Productos("producto-4", "Producto D", "https://dummyimage.com/400x600/000/fff", "Producto1", 1000);
+//remeras 
+const remera1 = new Producto("remeras-1", "Remera 1", "https://dummyimage.com/400x600/000/fff", "remeras", 1000);
+const remera2 = new Producto("remeras-2", "Remera 2", "https://dummyimage.com/400x600/000/fff", "remeras", 1000);
+const remera3 = new Producto("remeras-3", "Remera 3", "https://dummyimage.com/400x600/000/fff", "remeras", 1000);
+const remera4 = new Producto("remeras-4", "Remera 4", "https://dummyimage.com/400x600/000/fff", "remeras", 1000);
 
-//Producto 2
-const productoE = new Productos("producto-5", "Producto E", "https://dummyimage.com/400x600/000/fff", "Producto2", 1000);
-const productoF = new Productos("producto-6", "Producto F", "https://dummyimage.com/400x600/000/fff", "Producto2", 1000);
-const productoG = new Productos("producto-7", "Producto G", "https://dummyimage.com/400x600/000/fff", "Producto2", 1000);
-const productoH = new Productos("producto-8", "Producto H", "https://dummyimage.com/400x600/000/fff", "Producto2", 1000);
+//jeans
+const jean1 = new Producto("jean-1", "Jean 1", "https://dummyimage.com/400x600/000/fff", "jeans", 1000);
+const jean2 = new Producto("jean-2", "Jean 2", "https://dummyimage.com/400x600/000/fff", "jeans", 1000);
+const jean3 = new Producto("jean-3", "Jean 3", "https://dummyimage.com/400x600/000/fff", "jeans", 1000);
+const jean4 = new Producto("jean-4", "Jean 4", "https://dummyimage.com/400x600/000/fff", "jeans", 1000);
 
-//Producto 3
-const productoI = new Productos("producto-9", "Producto I", "https://dummyimage.com/400x600/000/fff", "Producto3", 1000);
-const productoJ = new Productos("producto-10", "Producto J", "https://dummyimage.com/400x600/000/fff", "Producto3", 1000);
-const productoK = new Productos("producto-11", "Producto K", "https://dummyimage.com/400x600/000/fff", "Producto3", 1000);
-const productoL = new Productos("producto-12", "Producto L", "https://dummyimage.com/400x600/000/fff", "Producto3", 1000);
+//buzos
+const buzo1 = new Producto("buzos-1", "Buzos 1", "https://dummyimage.com/400x600/000/fff", "buzos", 1000);
+const buzo2 = new Producto("buzos-2", "Buzos 2", "https://dummyimage.com/400x600/000/fff", "buzos", 1000);
+const buzo3 = new Producto("buzos-3", "Buzos 3", "https://dummyimage.com/400x600/000/fff", "buzos", 1000);
+const buzo4 = new Producto("buzos-4", "Buzos 4", "https://dummyimage.com/400x600/000/fff", "buzos", 1000);
 
-//Producto 4
-const productoM = new Productos("producto-1", "Producto M", "https://dummyimage.com/400x600/000/fff", "Producto4", 1000);
-const productoN = new Productos("producto-14", "ProductoN", "https://dummyimage.com/400x600/000/fff", "Producto4", 1000);
-const productoO = new Productos("producto-15", "Producto O", "https://dummyimage.com/400x600/000/fff", "Producto4", 1000);
-const productoP = new Productos("producto-16", "Producto P", "https://dummyimage.com/400x600/000/fff", "Producto4", 1000);
+//camperas
+const camperas1 = new Producto("camperas-1", "Camperas 1", "https://dummyimage.com/400x600/000/fff", "camperas", 1000);
+const camperas2 = new Producto("camperas-2", "Camperas 2", "https://dummyimage.com/400x600/000/fff", "camperas", 1000);
+const camperas3 = new Producto("camperas-3", "Camperas 3", "https://dummyimage.com/400x600/000/fff", "camperas", 1000);
 
 
-const productos = [productoA, productoB, productoC, productoD, productoE, productoF, productoG, productoH, productoI, productoJ,
-productoK, productoL, productoM, productoN, productoO, productoP]
+const productos = [remera1, remera2, remera3, remera4, jean1, jean2, jean3, jean4, buzo1, buzo2, buzo3, buzo4,
+camperas1, camperas2, camperas3]
 
 const contenedorProductos = document.querySelector("#contenedorProducto");
 const botonesCategoria = document.querySelectorAll(".boton-categoria");
-let botonesAgregados = document.querySelector("#numero");
+let botonesAgregados = document.querySelector(".producto-agregar");
+const numero = document.querySelector("#numero");
 
 function agregarProductos(productos){
+
     contenedorProductos.innerHTML = "";
 
-    productos.forEach(producto => {
+    productos.forEach(producto => 
+        {
         let div = document.createElement("div");
-        div.classList.add("prducto");
+        div.classList.add("producto");
         div.innerHTML = ` <div class="producto">
                              <img class="producto-imagen" src="${producto.imagen}" alt="${producto.nombre}">
                              <div class="producto-detalle">
@@ -78,26 +80,26 @@ function agregarProductos(productos){
 
 agregarProductos(productos);
 
-const producto1 = productos.filter((prod) => prod.categoria === 'producto1');
-const producto2 = productos.filter((prod) => prod.categoria === 'producto2');
-const producto3 = productos.filter((prod) => prod.categoria === 'producto3');
-const producto4 = productos.filter((prod) => prod.categoria === 'producto4');
+const remeras = productos.filter((prod) => prod.categoria === 'remeras');
+const jeans = productos.filter((prod) => prod.categoria === 'jeans');
+const buzos = productos.filter((prod) => prod.categoria === 'buzos');
+const camperas = productos.filter((prod) => prod.categoria === 'camperas');
 
 botonesCategoria.forEach((boton, id) => {
     boton.addEventListener('click', () => {
         let botonDinamico = boton.id
         switch (botonDinamico) {
-            case 'producto1':
-                categoria(producto1)
+            case 'buzos':
+                categoria(buzos)
                 break;
-            case 'producto2':
-                categoria(producto2)
+            case 'remeras':
+                categoria(remeras)
                 break;
-            case 'producto3':
-                categoria(producto3)
+            case 'camperas':
+                categoria(camperas)
                 break;
-            case 'producto4':
-                categoria(producto4)
+            case 'jeans':
+                categoria(jeans)
                 break;
             default:
                 agregarProductos(productos)
@@ -130,6 +132,18 @@ function mostrarInicio() {
 
 mostrarInicio();
 
+function buscarProductos(){
+    let search = document.getElementById("buscar");
+    search.addEventListener("input", () => {
+        const valorBusqueda = search.value;
+        const productosFiltrados = productos.filter((producto) => {
+            return producto.nombre.toLowerCase().includes(valorBusqueda.toLowerCase());
+        });
+
+        agregarProductos(productosFiltrados);
+    });
+}
+buscarProductos();
 
 
 function categoria(array) {
@@ -139,9 +153,9 @@ function categoria(array) {
         div.classList.add("producto");
         div.innerHTML = `   
         <div class="producto">
-          <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
+          <img class="producto-imagen" src="${producto.imagen}" alt="${producto.nombre}">
           <div class="producto-detalle">
-             <h3 class="producto-titulo">${producto.titulo}</h3>
+             <h3 class="producto-titulo">${producto.nombre}</h3>
              <p class="producto-precio"> $${producto.precio}</p>
              <button class="producto-agregar" id="${producto.id}">Agregar</button>
           </div>
@@ -156,7 +170,7 @@ function actualizarBotonesAgregados(){
     botonesAgregados = document.querySelectorAll(".producto-agregar");
 
     botonesAgregados.forEach(boton => {
-        boton.addEventListener("click", agregarAlCarrito);
+        boton.addEventListener("click", meterAlCarrito);
     })
 }
 
@@ -170,9 +184,9 @@ if(productosEnCarritoLS){
     productosEnCarrito = [];
 }
 
-function agregarAlCarrito(e){
+function meterAlCarrito(e){
 
-    Toastify({
+    Toastify ({
         Text: "Producto Agregado",
         duration: 3000,
         close: true,
@@ -191,7 +205,7 @@ function agregarAlCarrito(e){
         onClick: function(){} // Callback after click
     }).showToast();
 
-    const idBton = e.currentTarget.id;
+    const idBton= e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idBton);
 
     if(productosEnCarrito.some(producto => producto.id == idBton)){
