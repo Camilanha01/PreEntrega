@@ -5,8 +5,8 @@ const carritoVacio = document.querySelector("#carrito-vacio");
 const carritoProductos = document.querySelector("#carrito-productos");
 const carritoAcciones = document.querySelector("#carrito-acciones");
 const carritoComprado = document.querySelector("#carrito-comprado");
-let botonesEliminador = document.querySelector("#.carrito-producto-eliminar");
-const carritoVaciar = document.querySelector("#carrito-acciones-vaciar");
+let botonesEliminador = document.querySelectorAll(".carrito-producto-eliminar");
+const botonVaciar = document.querySelector("#carrito-acciones-vaciar");
 const contenedorTotal = document.querySelector("#total");
 const botonComprar = document.querySelector("#carrito-acciones-comprar");
 
@@ -24,11 +24,11 @@ function subirProductoCarrito(){
             
             const div = document.createElement("div");
             div.classList.add("carrito-producto");
-            div,innerHTML = ` 
-            <img class="carrito-producto-imagen" src=".${producto.imagen}" alt="${producto.nombre}">
-            <div class="carrito-producto-nombre">
-                <small>Titutlo</small>
-                <h3>${producto.nombre}</h3>
+            div.innerHTML = ` 
+            <img class="carrito-producto-imagen" src=".${producto.imagen}" alt="${producto.titulo}">
+            <div class="carrito-producto-titulo">
+                <small>Titulo</small>
+                <h3>${producto.titulo}</h3>
             </div>
             <div class="carrito-producto-cantidad">
                 <small>Cantidad</small>
@@ -83,6 +83,7 @@ function eliminarDelCarrito(e){
 botonVaciar.addEventListener("click", vaciarCarrito);
 
 function vaciarCarrito(){
+
     Swal.fire({
         title: '¿Estas seguro?',
         text: "Se borraran los productos del carrito",
@@ -107,7 +108,7 @@ function vaciarCarrito(){
 
 function actualizarTotal(){
     const totalCalculado = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
-    totalCalculado.innerText = `$${totalCalculado}`;
+    total.innerText = `$${totalCalculado}`;
 }
 
 botonComprar.addEventListener("click", comprarCarrito);
@@ -121,3 +122,4 @@ function comprarCarrito(){
     carritoAcciones.classList.add("disabled");
     carritoComprado.classList.remove("disabled");
 }
+

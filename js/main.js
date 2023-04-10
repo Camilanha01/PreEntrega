@@ -1,11 +1,10 @@
-
-
+//NAV
 const nav = document.querySelector("#nav");
 const abrir = document.querySelector("#abrir");
 const cerrar = document.querySelector("#cerrar");
 
 abrir.addEventListener("click", () => {
-    nav.classList.remove("visible");
+    nav.classList.add("visible");
 })
 
 cerrar.addEventListener("click", () => {
@@ -13,10 +12,12 @@ cerrar.addEventListener("click", () => {
 })
 
 
+//PRODUCTOS 
+
 class Producto{
-    constructor (id, nombre, imagen, categoria, precio){
+    constructor (id, titulo, imagen, categoria, precio){
         this.id = id;
-        this.nombre = nombre;
+        this.titulo = titulo;
         this.imagen = imagen;
         this.categoria = categoria;
         this.precio = precio;
@@ -54,7 +55,7 @@ camperas1, camperas2, camperas3]
 const contenedorProductos = document.querySelector("#contenedorProducto");
 const botonesCategoria = document.querySelectorAll(".boton-categoria");
 let botonesAgregados = document.querySelector(".producto-agregar");
-const numero = document.querySelector("#numero");
+const numerito = document.querySelector("#numerito");
 
 function agregarProductos(productos){
 
@@ -65,9 +66,9 @@ function agregarProductos(productos){
         let div = document.createElement("div");
         div.classList.add("producto");
         div.innerHTML = ` <div class="producto">
-                             <img class="producto-imagen" src="${producto.imagen}" alt="${producto.nombre}">
+                             <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
                              <div class="producto-detalle">
-                                 <h3 class="producto-nombre">${producto.nombre}</h3>
+                                 <h3 class="producto-titulo">${producto.titulo}</h3>
                                  <p class="producto-precio"> $${producto.precio}</p>
                                  <button class="producto-agregar" id="${producto.id}">Agregar</button>
                              </div>
@@ -80,10 +81,10 @@ function agregarProductos(productos){
 
 agregarProductos(productos);
 
-const remeras = productos.filter((prod) => prod.categoria === 'remeras');
-const jeans = productos.filter((prod) => prod.categoria === 'jeans');
-const buzos = productos.filter((prod) => prod.categoria === 'buzos');
-const camperas = productos.filter((prod) => prod.categoria === 'camperas');
+const remeras = productos.filter((prod) => prod.categoria === 'remeras')
+const jeans = productos.filter((prod) => prod.categoria === 'jeans')
+const buzos = productos.filter((prod) => prod.categoria === 'buzos')
+const camperas = productos.filter((prod) => prod.categoria === 'camperas')
 
 botonesCategoria.forEach((boton, id) => {
     boton.addEventListener('click', () => {
@@ -153,9 +154,9 @@ function categoria(array) {
         div.classList.add("producto");
         div.innerHTML = `   
         <div class="producto">
-          <img class="producto-imagen" src="${producto.imagen}" alt="${producto.nombre}">
+          <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
           <div class="producto-detalle">
-             <h3 class="producto-titulo">${producto.nombre}</h3>
+             <h3 class="producto-titulo">${producto.titulo}</h3>
              <p class="producto-precio"> $${producto.precio}</p>
              <button class="producto-agregar" id="${producto.id}">Agregar</button>
           </div>
@@ -179,32 +180,12 @@ let productosEnCarritoLS = localStorage.getItem("productos-en-carrito");
 
 if(productosEnCarritoLS){
     productosEnCarrito = JSON.parse(productosEnCarritoLS);
-    actualizarNumero();
+    actualizarNumerito();
 }else{
     productosEnCarrito = [];
 }
 
 function meterAlCarrito(e){
-
-    Toastify ({
-        Text: "Producto Agregado",
-        duration: 3000,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-        color: "white",
-        background: "linear-gradient(to right, #0c225e, #0c225e)",
-        fontSize: "1rem",
-        },
-        offset: {
-            x: "1.5rem", // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-            y: "1.5rem" // vertical axis - can be a number or a string indicating unity. eg: '2em'
-        },
-        onClick: function(){} // Callback after click
-    }).showToast();
-
     const idBton= e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idBton);
 
@@ -216,13 +197,13 @@ function meterAlCarrito(e){
         productosEnCarrito.push(productoAgregado);
     }
 
-    actualizarNumero();
+    actualizarNumerito();
 
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 
 }
 
-function actualizarNumero(){
+function actualizarNumerito(){
     let nuevoNumero = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
-    nuevoNumero.innerText = nuevoNumero;
+    numerito.innerText = nuevoNumero;
 }
